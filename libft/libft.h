@@ -6,7 +6,7 @@
 /*   By: alexandrinedube <alexandrinedube@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:09:03 by adube             #+#    #+#             */
-/*   Updated: 2023/09/03 17:09:07 by alexandrine      ###   ########.fr       */
+/*   Updated: 2023/09/03 17:46:15 by alexandrine      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			*ft_memchr(const void *s, int c, size_t n);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_itoa(int n);
-char			**ft_split(char const *s, char c);
+char			**ft_split(char *s, char c);
 void			*ft_calloc(size_t count, size_t size);
 int				ft_strlcpy(char *dest, const char *src, size_t size);
 void			ft_putchar_fd(char c, int fd);
