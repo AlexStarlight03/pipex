@@ -6,7 +6,7 @@
 /*   By: alexandrinedube <alexandrinedube@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:05:27 by alexandrine       #+#    #+#             */
-/*   Updated: 2023/09/03 17:06:55 by alexandrine      ###   ########.fr       */
+/*   Updated: 2023/09/03 18:46:12 by alexandrine      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,9 @@ int	    open_file(char *file, int in_or_out);
 void    free_tab(char **tab);
 char    *get_envp(char *name, char **envp);
 char    *find_path(char *cmd, char **envp);
+void    exec(char *cmd, char **envp);
+void    child(char **argv, int *p_fd, char **envp);
+void    parent(char **argv, int *p_fd, char **envp);
+int main (int argc, char **argv, char **envp);
 
 #endif

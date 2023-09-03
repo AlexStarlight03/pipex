@@ -6,7 +6,7 @@
 /*   By: alexandrinedube <alexandrinedube@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:05:32 by alexandrine       #+#    #+#             */
-/*   Updated: 2023/09/03 17:08:39 by alexandrine      ###   ########.fr       */
+/*   Updated: 2023/09/03 18:56:00 by alexandrine      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ int	open_file(char *file, int in_or_out)
 		ret = open(file, O_RDONLY, 0777);
 	if (in_or_out == 1)
 		ret = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (in_or_out == 2)
-		ret = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (ret == -1)
 		exit(0);
 	return (ret);
@@ -59,7 +57,7 @@ char    *get_envp(char *name, char **envp)
         j = 0;
         while (envp[i][j] && envp[i][j] != '=')
             j++;
-        sub = ft_substr(envp[i], 0 , j);
+        sub = ft_substr(envp[i], 0, j);
         if (ft_strcmp(sub, name) == 0)
         {
             free(sub);

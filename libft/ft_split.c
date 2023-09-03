@@ -6,78 +6,86 @@
 /*   By: alexandrinedube <alexandrinedube@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:00:17 by adube             #+#    #+#             */
-/*   Updated: 2023/07/31 12:11:27 by alexandrine      ###   ########.fr       */
+/*   Updated: 2023/09/03 19:00:39 by alexandrine      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	nb_words(char const *str, char c)
+static int	count_words(char const *s, char c)
 {
-	int	i;
-	int	res;
-
-	i = 0;
-	res = 0;
-	while (str[i] != '\0')
-	{
-		while (str[i] == c && str[i] != '\0')
-			i++;
-		if (str[i] != c && str[i] != '\0')
-			res += 1;
-		while (str[i] != c && str[i] != '\0')
-			i++;
-	}
-	return (res);
-}
-
-static char	*ft_new_word(char const *str, int start, int end)
-{
-	char	*word;
+	int		count;
 	int		i;
 
 	i = 0;
-	word = ft_calloc(end - start + 1, sizeof(char));
-	if (word == NULL)
-		return (NULL);
-	while (start < end)
-		word[i++] = str[start++];
-	return (word);
+	count = 0;
+	while (s[i])
+	{
+		while (s[i] == c)
+			i++;
+		if (s[i] != c && s[i])
+			count++;
+		while (s[i] != c && s[i])
+			i++;
+	}
+	return (count);
 }
 
-static char	**ft_free(char **tab, int j)
+static void	ft_free_tab(char **tab)
 {
-	while (j--)
-		free(tab[j]);
+	char	**pos;
+
+	if (tab == NULL)
+		return ;
+	pos = tab;
+	while (*pos != NULL)
+		free(*(pos++));
 	free(tab);
-	return (NULL);
+}
+
+static char	*ft_str(char const *s, char c)
+{
+	int		i;
+	char	*ptr;
+
+	i = 0;
+	while (s[i] && s[i] != c)
+		i++;
+	ptr = malloc(sizeof(char) * (i + 1));
+	if (!(ptr))
+	{
+		free(ptr);
+		return (NULL);
+	}
+	ft_strlcpy(ptr, s, i + 1);
+	return (ptr);
 }
 
 char	**ft_split(char *s, char c)
 {
-	int		l;
-	int		start;
-	int		j;
-	char	**tab;
+	int		i;
+	int		strs_len;
+	char	**ptr;
 
-	l = 0;
-	j = 0;
 	if (!s)
+		return (0);
+	strs_len = count_words(s, c);
+	ptr = ft_calloc(sizeof(char *), (strs_len + 1));
+	if (!(ptr))
 		return (NULL);
-	tab = ft_calloc(nb_words(s, c) + 2, sizeof(char *));
-	if (tab == NULL)
-		return (NULL);
-	tab[0] = ft_calloc(1, sizeof(char));
-	while (s[l] != '\0' && nb_words(s, c) != 0 && j < nb_words(s, c))
+	i = -1;
+	while (++i < strs_len)
 	{
-		while (s[l] == c && s[l] != '\0')
-			l++;
-		start = l;
-		while (s[l] != c && s[l] != '\0')
-			l++;
-		tab[++j] = ft_new_word(s, start, l);
-		if (!tab[j])
-			return (ft_free(tab, j));
+		while (s[0] == c)
+			s++;
+		ptr[i] = ft_str(s, c);
+		if (!(ptr[i]))
+		{
+			ft_free_tab(ptr);
+			return (NULL);
+		}
+		s += ft_strlen(ptr[i]);
 	}
-	return (tab);
+	ptr[i] = 0;
+	return (ptr);
 }
